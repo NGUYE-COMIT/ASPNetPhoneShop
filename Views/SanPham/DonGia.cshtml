@@ -1,0 +1,48 @@
+﻿@using WebsiteBanHang.Models
+@model IEnumerable<SanPham>
+<div class="sidebar-categores-box search-filter mt-sm-25 mt-xs-30">
+    <div class="sidebar-title">
+        <h2>Filter By</h2>
+    </div>
+    <button class="btn-clear-all">Clear all</button>
+</div>
+<div class="sidebar-title-2">
+    <h2>Mức giá</h2>
+</div>
+<div class="sidebar-categores-box sidebar-categores_list mt-sm-25 mt-xs-25">
+    <div class="sidebar-categores-checkbox">
+        <form>
+            <ul>
+                <li>
+                   
+                    @Ajax.ActionLink("1 triệu - 5 triệu", "SanPhamTheoNhaSanXuatDonGia", "SanPham", new { @maLoai = ViewBag.MaLoai, @maNSX = ViewBag.MaNSX, priceRange = "1-5" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "result__product", InsertionMode = InsertionMode.Replace})
+                </li>
+                
+                <li>
+                    
+                    @Ajax.ActionLink("5 triệu - 10 triệu", "SanPhamTheoNhaSanXuatDonGia", "SanPham", new { @maLoai = ViewBag.MaLoai, @maNSX = ViewBag.MaNSX, priceRange = "5-10" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "result__product", InsertionMode = InsertionMode.Replace })
+                </li>
+
+                <li>
+                    @Ajax.ActionLink("10 triệu - 15 triệu", "SanPhamTheoNhaSanXuatDonGia", "SanPham", new { @maLoai = ViewBag.MaLoai, @maNSX = ViewBag.MaNSX, priceRange = "10-15" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "result__product", InsertionMode = InsertionMode.Replace })
+                </li>
+
+                <li>
+                    @Ajax.ActionLink("15 triệu - 30 triệu", "SanPhamTheoNhaSanXuatDonGia", "SanPham", new { @maLoai = ViewBag.MaLoai, @maNSX = ViewBag.MaNSX, priceRange = "15-30" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "result__product", InsertionMode = InsertionMode.Replace })
+                </li>
+
+                <li>
+                    @Ajax.ActionLink("30 triệu - 50 triệu", "SanPhamTheoNhaSanXuatDonGia", "SanPham", new { @maLoai = ViewBag.MaLoai, @maNSX = ViewBag.MaNSX, priceRange = "30-50" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "result__product", InsertionMode = InsertionMode.Replace })
+                </li>
+
+                <li>
+                    @Ajax.ActionLink("50 triệu - 100 triệu", "SanPhamTheoNhaSanXuatDonGia", "SanPham", new { @maLoai = ViewBag.MaLoai, @maNSX = ViewBag.MaNSX, priceRange = "50-100" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "result__product", InsertionMode = InsertionMode.Replace })
+                </li>
+
+                <li>
+                    @Ajax.ActionLink("Trên 100 triệu", "SanPhamTheoNhaSanXuatDonGia", "SanPham", new { @maLoai = ViewBag.MaLoai, @maNSX = ViewBag.MaNSX, priceRange = "Tren100" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "result__product", InsertionMode = InsertionMode.Replace })
+                </li>
+            </ul>
+        </form>
+    </div>
+</div>

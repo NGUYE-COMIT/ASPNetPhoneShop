@@ -1,0 +1,67 @@
+﻿@model IEnumerable<WebsiteBanHang.Models.ThanhVien>
+
+@{
+    ViewBag.Title = "ListMember";
+    Layout = "~/Views/Layout/_LayoutAdmin.cshtml";
+}
+<div class="form-group">
+    <div class="col-md-offset-5 col-md-10">
+        <a class="btn btn-primary" href="@Url.Action("CreateMember", "Member")" style="margin-left:12px">Thêm mới</a>
+    </div>
+</div>
+<div class="card-body" style="padding-top:0">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TaiKhoan)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HoTen)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DiaChi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SoDienThoai)
+                </th>
+                <th>
+                    Loại thành viên
+                </th>
+                <th>Chức năng</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TaiKhoan)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HoTen)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DiaChi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SoDienThoai)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LoaiThanhVien.TenLoai)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditMember", new { id = item.MaTV }) |
+                        @Html.ActionLink("Delete", "RemoveMember", new { id = item.MaTV })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+﻿@using WebsiteBanHang.Models
+@model List<ItemGioHang>
+@{
+    ViewBag.Title = "XemGioHang";
+    Layout = "~/Views/Layout/_LayoutHomeProduct.cshtml";
+}
+@if (Model.Count == 0)
+{
+    <div class="cart">
+        <div class="cart-item">
+            <div class="empty-cart">
+                <img src="~/assets/images/minicart/empty-cart.png" />
+                <div class="empty-cart-text">
+                    <h1>Chưa có sản phẩm nào trong giỏ hàng</h1>
+                    <p>Hãy mua hàng ngàn sản phẩm chất lượng tại Shop nhé!</p>
+                    <a href="@Url.Action("DanhSachSanPham", "Home")" class="fb-btn">Mua sắm ngay</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="Shopping-cart-area pt-60 pb-60">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-content table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="fb-product-thumbnail">Hình <span style="text-transform: lowercase; ">ảnh</span></th>
+                                    <th class="cart-product-name">Tên <span style="text-transform: lowercase; ">sản phẩm</span></th>
+                                    <th class="fb-product-price">Giá</th>
+                                    <th class="fb-product-quantity">Số <span style="text-transform: lowercase; ">lượng</span></th>
+                                    <th class="fb-product-subtotal">Tổng <span style="text-transform: lowercase; ">thanh toán</span></th>
+                                    <th class="fb-product-remove">Chỉnh sửa</th>
+                                    <th class="fb-product-remove">Xóa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+
+                                        <td class="fb-product-thumbnail" style="width:90px; height:90px;"><img src="@Url.Content("~/assets/images/product/" + item.HinhAnh)" alt="FB's Product Image" /></td>
+                                        <td class="fb-product-name"><a href="@Url.Action("ChiTietSanPham", "Sanpham", new { maLoai = item.MaLoai, maNSX = item.MaNSX, id = item.MaSP, @tensp = item.TenSP })">@item.TenSP</a></td>
+                                        <td class="fb-product-price"><span class="amount">@item.DonGia.ToString("#,##")₫</span></td>
+                                        <td><span> @item.SoLuong</span></td>
+                                        <td class="product-subtotal"><span class="amount">@item.ThanhTien.ToString("#,##")₫</span></td>
+                                        <td>
+                                            @Html.ActionLink("Chỉnh sửa", "UpdateCard", new { @maSP = item.MaSP })
+                                        </td>
+                                        <td class="fb-product-remove">
+                                            @Html.ActionLink("x", "XoaGioHang", new { @maSP = item.MaSP })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row" style="margin-top:25px">
+                        <div class="col-md-5 ms-auto" style="margin-top:7px">
+                            <div class="cart-page-total">
+                                <h2>Cart totals</h2>
+                                <ul>
+                                    <li>Số lượng <span>@ViewBag.TinhSoLuong</span></li>
+                                    <li>Tổng thành tiền <span>@ViewBag.TongTien.ToString("#,##0")₫</span></li>
+                                </ul>
+                                @using (Html.BeginForm("MuaHang", "GioHang"))
+                                {
+                                    <input class="fb-btn" type="submit" value="Mua Ngay" id="btnmuahang" style="margin-top:33px;" />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

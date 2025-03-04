@@ -1,0 +1,82 @@
+﻿@using WebsiteBanHang.Models
+@model IEnumerable<SanPham>
+
+
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+<div class="header-middle bg-white header-sticky stick">
+    <div class="container logo-nav">
+        <div class="row align-items-center">
+            <!-- Begin Logo Area -->
+            <div class="col-lg-3">
+                <div class="logo">
+                    <a class="no-sticky" href="index.html">
+                        <img src="~/assets/images/menu/logo/2.png" alt="FB's Logo">
+                    </a>
+                </div>
+                <div class="logo">
+                    <a class="sticky" href="index.html">
+                        <img src="~/assets/images/menu/logo/1.png" alt="FB's Logo">
+                    </a>
+                </div>
+            </div>
+            <!-- Logo Area End Here -->
+            <!-- Begin Header Middle Menu Area -->
+            <div class="col-lg-9 d-none d-lg-block d-xl-block">
+                <div class="hm-menu-2">
+                    <!-- FB's Navigation -->
+                    <nav class="fb-navigation">
+                        <ul>
+                            <li class="dropdown active">
+                                <a href="@Url.Action("DanhSachSanPham","Home")">TRANG CHỦ</a>
+                            </li>
+                            @foreach (var groupItem in Model.GroupBy(m => m.LoaiSanPham))
+                            {
+                                if (groupItem.Key != null)
+                                {
+                                    <li class="dropdown">
+                                        <a href="@Url.Action("SanPhamTheoLoai","SanPham",new { maLoai = groupItem.Key.MaLoaiSP })">@groupItem.Key.TenLoai</a>
+                                        <ul class="hb-dropdown">
+                                            @foreach (var item in groupItem.GroupBy(m => m.NhaSanXuat))
+                                            {
+                                                if (item.Key != null)
+                                                {
+                                                    <li>
+                                                        <a href="@Url.Action("SanPhamTheoNhaSanXuat","SanPham",new { maLoai = groupItem.Key.MaLoaiSP, maNSX = item.Key.MaNSX})">@item.Key.TenNSX</a>
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+                            }
+                            <li>
+                                <a href="@Url.Action("GioiThieu","Home")">Tin Tức</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("LienHe","Home")">Liên hệ</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!--FB's Navigation -->
+                    <!-- Begin Header Middle Mini Cart Area -->
+                    <ul class="header-middle-mini-cart">
+                        <!-- Begin Header Mini Cart Area -->
+                        @Html.Action("GioHangPartial", "GioHang")
+                        <!-- Header Mini Cart Area End Here -->
+                    </ul>
+                    <!-- Header Middle Mini Cart Area End Here -->
+                </div>
+            </div>
+            <!-- Header Middle Menu Area End Here -->
+        </div>
+        <div class="row">
+            <!-- Begin Mobile Menu Area -->
+            <div class="mobile-menu-area mobile-menu-area-4 d-lg-none d-xl-none col-12">
+                <div class="mobile-menu"></div>
+            </div>
+            <!-- Mobile Menu Area End Here -->
+        </div>
+    </div>
+</div>

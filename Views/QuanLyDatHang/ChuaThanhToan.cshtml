@@ -1,0 +1,104 @@
+﻿@model IEnumerable<WebsiteBanHang.Models.DonDatHang>
+
+@{
+    ViewBag.Title = "Chuathanhtoan";
+    Layout = "~/Views/Layout/_LayoutAdmin.cshtml";
+}
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>
+                        Ngày đặt
+                    </th>
+                    <th>
+                        Tình trạng giao hàng
+                    </th>
+                    <th>
+                        Ngày giao
+                    </th>
+                    <th>
+                        Đã thanh toán
+                    </th>
+                    <th>
+                        Ưu đãi
+                    </th>
+                    <th>
+                        Đã hủy
+                    </th>
+                    <th>
+                        Đã xóa
+                    </th>
+                    <th>
+                        Tên khách hàng
+                    </th>
+                    <th>Chức năng</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.NgayDat
+                        </td>
+                        <td>
+                            @if (item.TinhTrangGiaoHang == false)
+                            {
+                                <span style="color: red">Chưa giao hàng</span>
+                            }
+                            else
+                            {
+                                <span style="color: green">Đã giao hàng</span>
+                            }
+                        </td>
+                        <td>
+                            @item.NgayGiao
+                        </td>
+                        <td>
+                            @if (item.DaThanhToan == false)
+                            {
+                                <span style="color: red">Chưa thanh toán</span>
+                            }
+                            else
+                            {
+                                <span style="color: green">Đã thanh toán</span>
+                            }
+                        </td>
+                        <td>
+                            @item.UuDai
+                        </td>
+                        <td>
+                            @if (item.DaHuy == false)
+                            {
+                                <span style="color: red">@item.DaHuy</span>
+                            }
+                            else
+                            {
+                                <span style="color: green">@item.DaHuy</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.DaXoa == false)
+                            {
+                                <span style="color: red">@item.DaXoa</span>
+                            }
+                            else
+                            {
+                                <span style="color: green">@item.DaXoa</span>
+                            }
+                        </td>
+                        <td>
+                            @item.KhachHang.TenKH
+                        </td>
+                        <td>
+                            <a href="@Url.Action("DuyetDonHang", "QuanLyDatHang", new{ id = item.MaDDH })">Duyệt đơn hàng</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

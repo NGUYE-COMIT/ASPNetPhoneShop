@@ -1,0 +1,47 @@
+﻿@using WebsiteBanHang.Models
+@model PhieuNhap
+@{
+    ViewBag.Title = "NhapHang";
+    Layout = "~/Views/Layout/_LayoutAdmin.cshtml";
+}
+<div class="form-horizontal" style="margin-left: 25px">
+    <div class="form-group">
+        <label class="control-label col-md-2">Nhà cung cấp</label>
+        <div class="col-md-4">
+            @Html.DropDownList("MaNCC", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MaNCC, "", new { @class = "text-danger validation" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Ngày cập nhật</label>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.NgayNhap, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = DateTime.Now.ToString("yyyy-MM-dd") } })
+            @Html.ValidationMessageFor(model => model.NgayNhap, "", new { @class = "text-danger validation" })
+        </div>
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>
+                Sản phẩm
+            </th>
+            <th>
+                Đơn giá
+            </th>
+            <th>
+                Số lượng nhập
+            </th>
+            <th></th>
+        </tr>
+
+    </table>
+     <button class="btn-primary">+</button>
+     <button class="btn-primary">Thêm mới</button>
+</div>
+<style>
+    .table th, .table td {
+        padding: 8px; /* Khoảng cách giữa nội dung và đường biên của ô */
+        text-align: center; /* Căn giữa nội dung của cột */
+    }
+</style>

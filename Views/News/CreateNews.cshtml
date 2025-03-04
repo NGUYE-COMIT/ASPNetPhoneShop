@@ -1,0 +1,63 @@
+﻿@model WebsiteBanHang.Models.TinTuc
+
+@{
+    ViewBag.Title = "CreateNews";
+    Layout = "~/Views/Layout/_LayoutAdmin.cshtml";
+}
+<script src="~/assets/tinymce/js/tinymce/tinymce.min.js"></script> @*sử dụng control editor tinymce*@
+<script src="~/Scripts/Checkimage.js"></script>
+<script src="/path/or/uri/to/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: '#Content'
+    });
+</script>
+@using (Html.BeginForm("CreateNews", "News", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <label class="control-label col-md-2"> Tiêu đề</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TieuDe, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TieuDe, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Nội dung</label>
+            <div class="col-md-12">
+                <form method="post" onsubmit="return validateForm()">
+                    <textarea id="Content" name="NoiDung" class="form-control"></textarea>
+                </form>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Ngày đăng</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NgayDang, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = DateTime.Now.ToString("yyyy-MM-dd") } })
+                @Html.ValidationMessageFor(model => model.NgayDang, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <lable class="control-label col-md-2">Hình ảnh</lable>
+            <div class="col-md-10">
+                <input id="fileInput" name="HinhBia" type="file" onchange="validateImage()" />
+                <span style="color:red;font-size:13px">@ViewBag.upload</span>
+                <span style="color:red;font-size:13px">@ViewBag.Images</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,76 @@
+﻿@using WebsiteBanHang.Models
+<!-- Begin Header Top Area -->
+<div class="header-top bg-white">
+    <div class="container">
+        <div class="header-top-nav">
+            <div class="row">
+                <!-- Begin Header Top Left Area Area -->
+                <div class="col-lg-5 col-md-6">
+                    <div class="top-selector-wrapper">
+                        <ul class="single-top-selector">
+                            <!-- Begin Language Area -->
+                            <li class="language list-inline-item">
+                                <span>Language:</span>
+                                <div class="btn-group">
+                                    <button class="dropdown-toggle">
+                                        <img src="~/assets/images/menu/flag-icon/1.jpg" alt="">English<i class="fa fa-caret-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <ul>
+                                            <li>
+                                                <a href="#">
+                                                    <img src="~/assets/images/menu/flag-icon/1.jpg"
+                                                         alt=""> English
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <img src="~/assets/images/menu/flag-icon/2.jpg"
+                                                         alt=""> Français
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- Language End Here -->
+                            <!-- Currency Area End Here -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-md-6">
+                    <div class="header-top-right">
+                        <ul class="user-block list-inline">
+                            @if (Session["TaiKhoan"] != null)
+                            {
+                                ThanhVien thanhVien = (ThanhVien)Session["TaiKhoan"];
+                                <i class="fa-solid fa-user" style="font-size:13px; margin:6px 5px 0 0"></i>
+                                <ul class="single-top-selector">
+                                    <li class="currency list-inline-item">
+                                        <span style="font-size:13px;">@thanhVien.HoTen</span>
+                                        <div class="btn-group">
+                                            <button class="dropdown-toggle" style="border:none;background-color:white">
+                                                <i class="fa fa-caret-down"></i>
+                                            </button>
+                                            <div class="dropdown-menu" style="width:150px">
+                                                <ul>
+                                                    <li><a href="~/Home/TaiKhoanCuaToi">Tài Khoản của tôi</a></li>
+                                                    <li>@Html.ActionLink("Đăng xuất", "DangXuat", "Home")</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            }
+                            else
+                            {
+                                <li><a href="~/Home/DangNhap">Đăng nhập</a></li>
+                                <li><a href="~/Home/DangKy">Đăng ký</a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

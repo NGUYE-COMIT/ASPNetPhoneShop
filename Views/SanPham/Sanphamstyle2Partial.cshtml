@@ -1,0 +1,83 @@
+﻿@using WebsiteBanHang.Models
+@using PagedList.Mvc
+@model PagedList.IPagedList<SanPham>
+<div id="result__product">
+    <div class="shop-top-bar mt-25">
+        <div class="shop-bar-inner">
+            <div class="product-view-mode">
+                <!-- shop-item-filter-list start -->
+                <ul class="nav shop-item-filter-list" role="tablist">
+                    <li class="active" role="presentation">
+                        <a aria-selected="true" class="show active" data-bs-toggle="tab" role="tab" aria-controls="grid-view" href="#grid-view"><i class="fa fa-th"></i></a>
+                    </li>
+                    <li role="presentation"><a data-bs-toggle="tab" role="tab" aria-controls="list-view" href="#list-view" aria-selected="false" class="" tabindex="-1"><i class="fa fa-th-list"></i></a></li>
+                </ul>
+                <!-- shop-item-filter-list end -->
+            </div>
+            <div class="toolbar-amount">
+                <span>@Model.Count Sản Phẩm</span>
+            </div>
+        </div>
+    </div>
+    <div class="shop-products-wrapper bg-white mt-30 pb-60 pb-sm-30">
+        <div class="tab-content">
+            <div id="grid-view" class="tab-pane fade active show" role="tabpanel">
+                <div class="fb-product_wrap shop-product-area">
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <div class="single-product">
+                                    <div class="product-img">
+                                        <a href="@Url.Action("ChiTietSanPham", "Sanpham", new {maLoai = item.MaLoaiSP, maNSX = item.MANSX, id = item.MaSP, @tensp = item.TenSP })">
+                                            <img class="primary-img" src="@Url.Content("~/assets/images/product/" + @item.HinhAnh)" alt="FB'S Prduct">
+                                        </a>
+                                    </div>
+                                    <div class="product-content">
+                                        <h5 class="product-name" style="margin-top:20px;"><a href="@Url.Action("ChiTietSanPham", "SanPham", new {maLoai = item.MaLoaiSP, maNSX = item.MANSX, id = item.MaSP, @tensp = item.TenSP })">@item.TenSP</a></h5>
+                                        <div class="rating-box">
+                                            <ul class="rating">
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li class="no-star"><i class="fa fa-star"></i></li>
+                                                <li class="no-star"><i class="fa fa-star"></i></li>
+                                            </ul>
+                                        </div>
+                                        <div class="price-box">
+                                            <span class="new-price">@item.DonGia.Value.ToString("#,## ₫")</span>
+                                        </div>
+                                        <div class="product-action">
+                                            <ul class="product-action-link">
+                                                @if (Session["TaiKhoan"] != null)
+                                                {
+                                                    <li class="shopping-cart_link"> <a href="">@Ajax.ActionLink(" ", "ThemGioHangAjax", "GioHang", new { @maSP = item.MaSP, @strULR = Request.Url.ToString() }, ajaxOptions: new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "ajaxGioHang", InsertionMode = InsertionMode.Replace }, htmlAttributes: new { @class = "ion-bag my-icon" })</a> </li>
+                                                }
+                                                <li class="single-product_link"><a href="@Url.Action("ChiTietSanPham", "Sanpham", new {maLoai = item.MaLoaiSP, maNSX = item.MANSX, id = item.MaSP, @tensp = item.TenSP })" title="Xem chi tiết"><i class="ion-link"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="paginatoin-area" style="margin:0">
+        <div class="row">
+            <div class="col-lg-8 col-md-6">
+                <p></p>
+            </div>
+            <div class="col-lg-4 col-md-6" style="box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);">
+                <ul class="pagination-box pt-xs-20 pb-xs-15">
+                    <li>
+                        @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+                    </li>
+                    <li class="" style="float:right">@Html.PagedListPager(Model, Page => @Url.Action("SanPhamTheoNhaSanXuat", new { Page = Page, @maLoai = ViewBag.MaLoai, @maNSX = ViewBag.MaNSX }))</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

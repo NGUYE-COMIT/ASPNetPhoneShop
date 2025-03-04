@@ -1,0 +1,16 @@
+﻿@if (((string)Session["Quyen"] == "PhanQuyen,QuanLyDonHang,QuanLySanPham,QuanTri") || ((string)Session["Quyen"] == "QuanLySanPham"))
+{
+    <li class="nav-item">
+        <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+           aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Quản lý sản phẩm</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="@Url.Action("ThongTinSanPham", "QuanLySanPham")">Thông tin sản phẩm</a>
+                <a class="collapse-item" href="@Url.Action("NhapHang", "QuanLyNhapHang")">Nhập hàng</a>
+            </div>
+        </div>
+    </li>
+}

@@ -1,0 +1,72 @@
+﻿@using WebsiteBanHang.Models
+@model LoaiThanhVien
+@{
+    ViewBag.Title = "Phân quyền";
+    Layout = "~/Views/Layout/_LayoutAdmin.cshtml";
+}
+@{
+    IEnumerable<Quyen> listRole = (IEnumerable<Quyen>)ViewBag.ListRole;
+    IEnumerable<LoaiThanhVien_Quyen> listMemberRole = (IEnumerable<LoaiThanhVien_Quyen>)ViewBag.ListMemberRole;
+}
+@using (Html.BeginForm())
+{
+    @Html.Hidden("Id_Member", Model.MaLoaiTV)
+
+    if (listMemberRole != null)
+    {
+        // Membership type had role
+        for (int i = 0; i < listRole.Count(); i++)
+        {
+            int data = 0;
+            for (int j = 0; j < listMemberRole.Count(); j++)
+            {
+                // Compare item role with item member role
+                if (listRole.ElementAt(i).MaQuyen == listMemberRole.ElementAt(j).MaQuyen)
+                {
+                    data++;
+                    break;
+                }
+            }
+            if (data != 0)
+            {
+                <div class="col-md-4">
+                    <input class="Check__Click" checked="checked" style="width:20px ; height: 20px" type="checkbox" name="@Url.Content("["+i+"].MaQuyen")" value="@listRole.ElementAt(i).MaQuyen" />@listRole.ElementAt(i).TenQuyen
+                </div>
+            }
+            else
+            {
+                <div class="col-md-4">
+                    <input class="Check__Click" style="width:20px ; height: 20px" type="checkbox" name="@Url.Content("["+i+"].MaQuyen")" value="@listRole.ElementAt(i).MaQuyen" /> @listRole.ElementAt(i).TenQuyen
+                </div>
+            }
+            data = 0;
+        }
+    }
+    else
+    {
+        for (int i = 0; i < listRole.Count(); i++)
+        {
+            <div class="col-md-4">
+                <input class="Check__Click" style="width:20px ; height: 20px" type="checkbox" name="@Url.Content("["+i+"].MaQuyen")" value="@listRole.ElementAt(i).MaQuyen" /> @listRole.ElementAt(i).TenQuyen
+            </div>
+        }
+    }
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Thực hiện" class="btn btn-primary" />
+        </div>
+    </div>
+}
+@* Duyệt lại checkbox đã được check *@
+<script>
+    $(".Check__Click").click(function () {
+        i = 0;
+        $(".Check__Click").each(function () {
+            if ($(this).is(':checked')) {
+                $(this).attr("name", "[" + i + "].MaQuyen");
+                i++;
+            }
+        })
+    })
+</script>
+

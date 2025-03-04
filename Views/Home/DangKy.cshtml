@@ -1,0 +1,76 @@
+﻿@using CaptchaMvc.HtmlHelpers
+@using CaptchaMvc;
+@using WebsiteBanHang.Models
+@model ThanhVien
+@{
+    ViewBag.Title = "Dangky";
+    Layout = "~/Views/Layout/_LayoutHomeProduct.cshtml";
+}
+<div class="page-section pt-60 pb-60">
+    <div class="container">
+        <div class="row">
+            <div class="offset-lg-2 col-lg-8 col-md-12 col-12">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <div class="login-form">
+                        <h4 class="login-title">Đăng ký</h4>
+                        <div class="row">
+                            <div class="col-md-6 col-12 mb-20">
+                                @Html.LabelFor(model => model.TaiKhoan)
+                                @Html.TextBox("TaiKhoan", null, new { placeholder = "Tài khoản" })
+                                @Html.ValidationMessageFor(model => model.TaiKhoan, null, new { @class = "text-danger validation" })
+                                <p style="margin:-13px 0 0 0;color: red">@ViewBag.TrungLap</p>
+                            </div>
+                            <div class="col-md-6 col-12 mb-20">
+                                @Html.LabelFor(model => model.HoTen)
+                                @Html.TextBox("HoTen", null, new { placeholder = "Họ và tên" })
+                                @Html.ValidationMessageFor(model => model.HoTen, null, new { @class = "text-danger validation" })
+                            </div>
+                            <div class="col-md-12 mb-20">
+                                @Html.LabelFor(model => model.DiaChi)
+                                @Html.TextBox("DiaChi", null, new { placeholder = "Địa chỉ" })
+                                @Html.ValidationMessageFor(model => model.DiaChi, null, new { @class = "text-danger validation" })
+                            </div>
+                            <div class="col-md-6 col-12 mb-20">
+                                @Html.LabelFor(model => model.Email)
+                                @Html.TextBox("Email", null, new { placeholder = "Email" })
+                                @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger validation" })
+                            </div>
+                            <div class="col-md-6 col-12 mb-20">
+                                @Html.LabelFor(model => model.SoDienThoai)
+                                @Html.TextBox("SoDienThoai", null, new { placeholder = "Số điện thoại" })
+                                @Html.ValidationMessageFor(model => model.SoDienThoai, null, new { @class = "text-danger validation" })
+                            </div>
+                            <div class="col-md-6 col-12 mb-20">
+                                @Html.LabelFor(model => model.MatKhau)
+                                @Html.Password("MatKhau", null, new { placeholder = "Passwork" })
+                                @Html.ValidationMessageFor(model => model.MatKhau, null, new { @class = "text-danger validation" })
+                            </div>
+                            <div class="col-md-6 col-12 mb-20">
+                                <label>Confirm Password</label>
+                                @Html.Password("ConfirmPassword", null, new { placeholder = "Confirm Password" })
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { @class = "text-danger validation" })
+                                <p style="margin:-13px 0 0 0;color: red">@ViewBag.NoMatch</p>
+                            </div>
+                            <div class="col-md-6 mb-20">
+                                @Html.MathCaptcha()
+                                <p style="margin:-13px 0 0 0;color: red; font-size:13px">@ViewBag.Captcha </p>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="register-button mt-0">Đăng ký</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+.validation
+{
+    font-size:13px;
+}
+</style>

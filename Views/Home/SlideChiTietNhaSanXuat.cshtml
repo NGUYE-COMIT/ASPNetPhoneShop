@@ -1,0 +1,33 @@
+﻿@using WebsiteBanHang.Models
+@{
+    ViewBag.Title = "SanPhamTheoLoai";
+    Layout = "~/Views/Layout/_LayoutHomeProduct.cshtml";
+}
+@using PagedList.Mvc
+@model PagedList.IPagedList<SanPham>
+<div class="content-wraper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 order-1 order-lg-2">
+                <div class="shop-products-wrapper bg-white mt-30 pb-60 pb-sm-30">
+                    <div class="tab-content">
+                        <div id="grid-view" class="tab-pane fade active show" role="tabpanel">
+                            <div class="fb-product_wrap shop-product-area">
+                                <div class="row">
+                                    @Html.Partial("~/Views/Sanpham/Sanphamstyle2Partial.cshtml")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 order-2 order-lg-1" style="margin-top:25px">
+                <div class="sidebar-title">
+                    <h2>Sản Phẩm</h2>
+                </div>
+                @Html.Action("SidebarSanPhamPartial", "SanPham")
+                @Html.Action("DonGia", "SanPham")
+            </div>
+        </div>
+    </div>
+</div>

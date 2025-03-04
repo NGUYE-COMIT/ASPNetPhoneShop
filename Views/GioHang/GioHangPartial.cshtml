@@ -1,0 +1,25 @@
+﻿@* Dùng Viewbag để thể hiện tổng số lượng sản phẩm có trong giỏ hàng và tổng tiền *@
+@using WebsiteBanHang.Models
+@model List<ItemGioHang>
+@{
+    List<ItemGioHang> itemGioHangs = (List<ItemGioHang>)ViewBag.ListGioHang;
+}
+
+<li id="ajaxGioHang" class="hm-minicart">
+    <div class="hm-minicart-trigger">
+        <span class="item-icon"></span>
+        <span class="item-text">
+            Cart
+            <span class="cart-item-count">@ViewBag.TinhSoLuong</span>
+        </span>
+        <span class="item-total">@ViewBag.TongTien.ToString("#,##0")₫</span>
+    </div>
+    <span></span>
+    <script>
+    $(document).ready(function () {
+        $("#ajaxGioHang").on("click", function () {
+            window.location.href = '@Url.Action("XemGioHang", "GioHang")';
+        });
+    });
+    </script>
+</li>

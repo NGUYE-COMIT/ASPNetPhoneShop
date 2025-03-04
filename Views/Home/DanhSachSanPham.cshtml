@@ -1,0 +1,81 @@
+﻿@using WebsiteBanHang.Models
+@using PagedList.Mvc
+@model PagedList.IPagedList<SanPham>
+@{
+    ViewBag.Title = "DanhSachSanPham";
+    Layout = "~/Views/Layout/_LayoutHome.cshtml";
+}
+<header class="bg-midnight header-4">
+    <div class="header-top bg-white">
+        <div class="container">
+            <div class="header-top-nav">
+                <div class="row">
+                    @Html.Partial("~/views/layout/_layoutheadertop.cshtml")
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Action("Menupartial", "Home")
+    @Html.Partial("~/Views/Layout/_LayoutSearch.cshtml")
+</header>
+@Html.Partial("~/Views/Layout/_LayoutSlide.cshtml")
+@Html.Action("SlideNhaSanXuatPartial", "Home")
+@Html.Action("SanPhamMoi", "Home")
+<div class="content-wraper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Begin FB's Banner Area -->
+                <div class="shoptopbar-heading">
+                </div>
+                <!-- FB's Banner Area End Here -->
+                <!-- shop-top-bar start -->
+                <div class="shop-top-bar mt-30">
+                    <div class="shop-bar-inner">
+                        <div class="product-view-mode">
+                            <!-- shop-item-filter-list start -->
+                            <ul class="nav shop-item-filter-list" role="tablist">
+                                <li class="active" role="presentation">
+                                    <a aria-selected="true" class="active show" data-bs-toggle="tab" role="tab" aria-controls="grid-view" href="#grid-view"><i class="fa fa-th"></i></a>
+                                </li>
+                            </ul>
+                            <!-- shop-item-filter-list end -->
+                        </div>
+                        <div class="toolbar-amount">
+                            <span>@Model.Count Sản Phẩm.</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- shop-top-bar end -->
+                <!-- shop-products-wrapper start -->
+                <div class="shop-products-wrapper bg-white mt-30 pb-60 pb-sm-30" style="padding:0">
+                    <div class="tab-content">
+                        <div id="grid-view" class="tab-pane fade active show" role="tabpanel">
+                            <div class="fb-product_wrap shop-product-area">
+                                <div class="row">
+                                    @Html.Partial("~/Views/Sanpham/Sanphamstyle1Partial.cshtml")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="paginatoin-area" style="margin-top:0">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-6">
+                            <p></p>
+                        </div>
+                        <div class="col-lg-4 col-md-6" style="box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
+                            <ul class="pagination-box pt-xs-20 pb-xs-15">
+                                <li>
+                                    @(Model.PageCount<Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                                </li>
+                                <li style="float:right">@Html.PagedListPager(Model, Page => @Url.Action("DanhSachSanPham", new { Page = Page }))</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Partial("~/Views/Layout/_Layoutfooter.cshtml")

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<WebsiteBanHang.Models.TinTuc>
+
+@{
+    ViewBag.Title = "ListNews";
+    Layout = "~/Views/Layout/_LayoutAdmin.cshtml";
+}
+<div class="form-group">
+    <div class="col-md-offset-5 col-md-10">
+        <a class="btn btn-primary" href="@Url.Action("CreateNews", "News")" style="margin-left:12px">Thêm mới</a>
+    </div>
+</div>
+<div class="card-body" style="padding-top:0">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <tr>
+                <th>
+                    Hình bìa
+                </th>
+                <th>
+                    Tiêu đề
+                </th>
+                <th>
+                    Nội dung
+                </th>
+                <th>
+                    Ngày đăng
+                </th>
+                <th>Chức năng</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="~/assets/images/News/@item.HinhBia" width="300px" height="200px" alt="Hình ảnh"  />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TieuDe)
+                    </td>
+                    <td>
+                        @Html.Raw(item.NoiDung)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NgayDang)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "UpdateNews", new { id = item.MaTin }) |
+                        @Html.ActionLink("Delete", "RemoveNews", new { id = item.MaTin })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

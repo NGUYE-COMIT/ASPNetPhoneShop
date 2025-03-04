@@ -1,0 +1,43 @@
+﻿@using WebsiteBanHang.Models
+<div class="header-bottom bg-polo-blue">
+    <div class="container">
+        <div class="row">
+            <!-- Begin Category Menu Area -->
+            <div class="col-lg-3 order-lg-2 order-2">
+                <!--Category Menu Start-->
+                <div class="category-menu category-menu-hidden">
+                    <div class="category-heading">
+                        <h2 class="categories-toggle"><span>All Producer</span></h2>
+                    </div>
+                    <div id="cate-toggle" class="category-menu-list">
+                        @Html.Action("Menuleft", "TimKiem")
+                    </div>
+                </div>
+                <!--Category Menu End-->
+            </div>
+            <!-- Category Menu Area End Here -->
+            <div class="col-lg-9 order-lg-2 order-1">
+                <!-- Begin Header Middle Right Area -->
+                <div class="header-middle-right">
+                    <!-- Begin Header Bottom Searchbox Area -->
+                    @using (Html.BeginForm("LayTuKhoaTimKiem", "TimKiem", FormMethod.Get, new { @class = "hm-searchbox hb-searchbox mt-xs-20" }))
+                        {
+                            <input type="text" name="tuKhoa" placeholder="Tên sản phẩm cần tìm ..." class="hm-searchbox-input" style="width:620px; border-radius:36px">
+                            <button class="fb-search_btn hm-searchbox-btn" value="Tìm Kiếm" type="submit"><i class="fa fa-search"></i></button>
+                        }
+                    <!-- Header Bottom Searchbox Area End Here -->
+                    <!-- Begin Header Bottom Contact Information Area -->
+                    <div class="hb-contact-info">
+                        <ul>
+                            <li class="phone mt-xs-20">
+                                <span>Hotline : </span><a href="callto://+123123321345">0333 945 872</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Header Bottom Contact Information Area End Here -->
+                </div>
+                <!-- Header Middle Right Area End Here -->
+            </div>
+        </div>
+    </div>
+</div>

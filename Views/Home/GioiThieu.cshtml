@@ -1,0 +1,32 @@
+﻿@using WebsiteBanHang.Models
+@model IEnumerable<TinTuc>
+@{
+    ViewBag.Title = "GioiThieu";
+    Layout = "~/Views/Layout/_LayoutHomeProduct.cshtml";
+}
+<main class="page-content" style="padding:50px 0;">
+    @foreach (var item in Model)
+    {
+        <div class="about-area section-padding-lg" style="margin-bottom:50px">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="about-thumb fb-img-hover-effect">
+                            <a href="#">
+                                <img src="~/assets/images/News/@item.HinhBia" alt="about image">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="about-content">
+                            <h2>@item.TieuDe</h2>
+                            <p>
+                                @Html.Raw(item.NoiDung)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</main>

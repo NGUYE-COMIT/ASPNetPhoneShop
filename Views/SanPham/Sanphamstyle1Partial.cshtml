@@ -1,0 +1,42 @@
+﻿@using WebsiteBanHang.Models
+@model IEnumerable<SanPham>
+@foreach (var item in Model)
+{
+    <div class="col-lg-3 col-md-4 col-sm-6">
+        <!-- Begin Sigle Product Area -->
+        <div class="single-product">
+            <!-- Begin Product Image Area -->
+            <div class="product-img">
+                <a href="@Url.Action("ChiTietSanPham", "Sanpham", new {maLoai = item.MaLoaiSP, maNSX = item.MANSX, id = item.MaSP, @tensp = item.TenSP })">
+                    <img class="primary-img" src="@Url.Content("~/assets/images/product/" + @item.HinhAnh)" alt="FB'S Prduct">
+                </a>
+            </div>
+            <!-- Product Image Area End Here -->
+            <!-- Begin Product Content Area -->
+            <div class="product-content">
+                <h5 class="product-name" style="margin-top:20px;"><a href="@Url.Action("ChiTietSanPham", "SanPham", new {maLoai = item.MaLoaiSP, maNSX = item.MANSX, id = item.MaSP, @tensp = item.TenSP })">@item.TenSP</a></h5>
+                <div class="rating-box">
+                    <ul class="rating">
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li class="no-star"><i class="fa fa-star"></i></li>
+                        <li class="no-star"><i class="fa fa-star"></i></li>
+                    </ul>
+                </div>
+                <div class="price-box">
+                    <span class="new-price">@item.DonGia.Value.ToString("#,## ₫")</span>
+                </div>
+                <div class="product-action">
+                    <ul class="product-action-link">
+                        @if (Session["TaiKhoan"] != null)
+                        {
+                            <li class="shopping-cart_link"> <a href="">@Ajax.ActionLink(" ", "ThemGioHangAjax", "GioHang", new { @maSP = item.MaSP, @strULR = Request.Url.ToString() }, ajaxOptions: new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "ajaxGioHang", InsertionMode = InsertionMode.Replace }, htmlAttributes: new { @class = "ion-bag my-icon" })</a> </li>
+                        }
+                        <li class="single-product_link"><a href="@Url.Action("ChiTietSanPham", "Sanpham",new {maLoai = item.MaLoaiSP, maNSX = item.MANSX, id = item.MaSP ,@tensp = item.TenSP})" title="Xem chi tiết"><i class="ion-link"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,58 @@
+﻿@using WebsiteBanHang.Models
+@model IEnumerable<SanPham>
+<div class="hot-deals-product new-product-2 pb-5" style="background: #f1f1f1; padding-top:30px">
+    <div class="container">
+        <div class="fb-product_list_nav">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="fb-section_title">
+                        <h2>Sản phẩm mới</h2>
+                    </div>
+                    <div class="fb-product_wrap bg-white mt-sm-60 mt-xs-60">
+                        <div class="new-product_active-2 owl-carousel">
+                            @foreach (var item in Model)
+                            {
+                                <div class="single-product">
+                                    <div class="product-img">
+                                        <a href="@Url.Action("ChiTietSanPham", "Sanpham",new {maLoai = item.MaLoaiSP, maNSX = item.MANSX, id = item.MaSP ,@tensp = item.TenSP})">
+                                            <img class="primary-img" src="@Url.Content("~/assets/images/product-mini/" + @item.HinhAnh1)" alt="FB'S Prduct">
+                                            <img class="secondary-img" src="@Url.Content("~/assets/images/product-mini/" + @item.HinhAnh2)" alt="FB'S Prduct">
+                                        </a>
+                                        <div class="sticker"><span>New</span></div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h2 class="product-name">
+                                            <a style="font-size:20px;font-family:Area;color:black" href="@Url.Action("ChiTietSanPham", "Sanpham",new {maLoai = item.MaLoaiSP, maNSX = item.MANSX, id = item.MaSP ,@tensp = item.TenSP})">@item.TenSP</a>
+                                        </h2>
+                                        <div class="rating-box">
+                                            <ul class="rating">
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li class="no-star"><i class="fa fa-star"></i></li>
+                                                <li class="no-star"><i class="fa fa-star"></i></li>
+                                            </ul>
+                                        </div>
+                                        <div class="price-box">
+                                            <span class="new-price">@item.DonGia.Value.ToString("#,## ₫")</span>
+                                        </div>
+                                        <div class="product-action">
+                                            <ul class="product-action-link">
+                                                @if (Session["TaiKhoan"] != null)
+                                                {
+                                                    <li class="shopping-cart_link"> <a href="">@Ajax.ActionLink(" ", "ThemGioHangAjax", "GioHang", new { @maSP = item.MaSP, @strULR = Request.Url.ToString() }, ajaxOptions: new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "ajaxGioHang", InsertionMode = InsertionMode.Replace }, htmlAttributes: new { @class = "ion-bag my-icon" })</a> </li>
+                                                }
+                                                <li class="single-product_link"><a href="@Url.Action("ChiTietSanPham", "Sanpham",new {maLoai = item.MaLoaiSP, maNSX = item.MANSX, id = item.MaSP ,@tensp = item.TenSP})" title="Xem chi tiết"><i class="ion-link"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

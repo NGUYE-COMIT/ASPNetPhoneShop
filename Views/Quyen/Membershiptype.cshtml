@@ -1,0 +1,49 @@
+﻿@model IEnumerable<WebsiteBanHang.Models.LoaiThanhVien>
+
+@{
+    ViewBag.Title = "Loại thành viên";
+    Layout = "~/Views/Layout/_LayoutAdmin.cshtml";
+}
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <a class="btn btn-primary" href="@Url.Action("CreateMembershiptype", "Quyen")" style="margin-left:28px">Thêm mới</a>
+    </div>
+</div>
+<div class="card-body" style="padding-top:0">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <tr>
+                <th>
+                    Mã loại thành viên
+                </th>
+                <th>
+                    Tên loại
+                </th>
+                <th>
+                    Ưu đãi
+                </th>
+                <th>Chức năng</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaLoaiTV)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenLoai)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UuDai)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Phân quyền", "Decentralization", new { id = item.MaLoaiTV }) |
+                        @Html.ActionLink("Xóa", "RemoveMembershiptype", new { id = item.MaLoaiTV })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

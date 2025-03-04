@@ -1,0 +1,94 @@
+﻿@using WebsiteBanHang.Models
+@model DonDatHang
+@{
+    ViewBag.Title = "DuyetDonHang";
+    Layout = "~/Views/Layout/_LayoutAdmin.cshtml";
+}
+@{ IEnumerable<WebsiteBanHang.Models.ChiTietDonDatHang> chiTietDonDatHangs = (IEnumerable<WebsiteBanHang.Models.ChiTietDonDatHang>)ViewBag.ChiTietDonDatHang;}
+@using (Html.BeginForm())
+{
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Mã đơn hàng:
+                            @Model.MaDDH @Html.Hidden("MaDDH", Model.MaDDH)
+                        </td>
+                        <td>
+                            Tên khách hàng:
+                            @Model.KhachHang.TenKH
+                        </td>
+                        <td>
+                            Ngày đặt hàng:
+                            @Model.NgayDat
+                        </td>
+                        <td>
+                            @if (Model.DaThanhToan == false) 
+                            { 
+                                <p>Chưa thanh toán</p>
+                            }
+                            @if (Model.DaThanhToan == true)
+                            {
+                                <p>Đã thanh toán</p> 
+                            }
+                        </td>
+                        <td>
+                            @if (Model.TinhTrangGiaoHang == false)
+                            {
+                                <p>Chưa giao hàng</p>
+                            }
+                            @if (Model.TinhTrangGiaoHang == true)
+                            {
+                                <p>Đã giao hàng</p>
+                            }
+                            
+                        </td>
+                    </tr>
+                    @foreach (var item in chiTietDonDatHangs)
+                    {
+                        <tr>
+                            <td>
+                                Mã chi tiết đơn hàng:
+                                @item.MaChiTietDatHang
+                            </td>
+                            <td>
+                                Tên sản phẩm:
+                                @item.TenSP
+                            </td>
+                            <td>
+                                Đơn giá:
+                                @item.DonGia.Value.ToString("#,## ₫")
+                            </td>
+                            <td>
+                                Số lượng đặt:
+                                @item.SoLuong
+                            </td>
+                            <td>
+                                <img width="150" src="@Url.Content("~/assets/images/product-mini/"+item.SanPham.HinhAnh1)" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <span class="item-total">Tổng số lượng: @Model.ChiTietDonDatHangs.Sum(m => m.SoLuong)</span>
+            <br />
+            <span class="item-total item-total-money">Thành tiền: @Model.ChiTietDonDatHangs.Sum(m => m.DonGia * m.SoLuong).Value.ToString("#,## ₫")</span>
+            <br />
+        </div>
+    </div>
+}
+<style>
+    .item-total {
+        font-size: 20px;
+        font-weight: 600;
+        color: #8d9513;
+    }
+
+    .item-total-money {
+        color: #4e73df;
+    }
+</style>

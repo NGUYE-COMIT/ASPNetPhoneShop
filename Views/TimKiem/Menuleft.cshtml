@@ -1,0 +1,14 @@
+﻿@using WebsiteBanHang.Models
+@model IEnumerable<NhaSanXuat>
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            <a href="@Url.Action("SlideChiTietNhaSanXuat", "Home", new {MaNSX = item.MaNSX})">
+                <span>
+                    <img class="primary-img" style="border-radius:50px; margin-top:5px" src="@Url.Content("~/assets/images/list-product/" + item.Logo)" alt="FB'S Prduct" width="25px" height="25px">
+                </span>@item.TenNSX
+            </a>
+        </li>
+    }
+</ul>

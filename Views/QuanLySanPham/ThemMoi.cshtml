@@ -1,0 +1,132 @@
+﻿@using WebsiteBanHang.Models
+@model SanPham
+@{
+    ViewBag.Title = "Themmoi";
+    Layout = "~/Views/Layout/_LayoutAdmin.cshtml";
+}
+<script src="~/assets/tinymce/js/tinymce/tinymce.min.js"></script> @*sử dụng control editor tinymce*@
+<script src="~/Scripts/textarea.js"></script>
+<script src="~/Scripts/Checkimage.js"></script>
+@using (Html.BeginForm("ThemMoi", "QuanLySanPham", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger validation" })
+    <div class="form-group">
+        <label class="control-label col-md-2">Tên sản phẩm</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TenSP, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TenSP, "", new { @class = "text-danger validation" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Đơn giá</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DonGia, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DonGia, "", new { @class = "text-danger validation" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Ngày cập nhật</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.NgayCapNhat, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = DateTime.Now.ToString("yyyy-MM-dd") } })
+            @Html.ValidationMessageFor(model => model.NgayCapNhat, "", new { @class = "text-danger validation" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Cấu hình</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CauHinh, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CauHinh, "", new { @class = "text-danger validation" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Mô tả</label>
+        <div class="col-md-12">
+            <form method="post" onsubmit="return validateForm()">
+                <textarea id="mytextarea" name="MoTa" class="form-control"></textarea>
+            </form>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Số lượng tồn</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SoLuongTon, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SoLuongTon, "", new { @class = "text-danger validation" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Nhà cung cấp</label>
+        <div class="col-md-10">
+            @Html.DropDownList("MaNCC", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MANCC, "", new { @class = "text-danger validation" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Nhà sản xuất</label>
+        <div class="col-md-10">
+            @Html.DropDownList("MaNSX", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MANSX, "", new { @class = "text-danger validation" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Loại sản phẩm</label>
+        <div class="col-md-10">
+            @Html.DropDownList("MaLoaiSP", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MaLoaiSP, "", new { @class = "text-danger validation" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Hình ảnh</label>
+        <div class="col-md-10">
+            <input id="fileInput" name="HinhAnh" type="file" onchange="validateImage()" />
+            <span style="color:red;font-size:13px">@ViewBag.upload</span>
+            <span style="color:red;font-size:13px">@ViewBag.Images</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Hình ảnh 1</label>
+        <div class="col-md-10">
+            <input id="fileInput1" name="HinhAnh1" type="file" onchange="validateImage()" />
+            <span style="color:red;font-size:13px">@ViewBag.upload</span>
+            <span style="color:red;font-size:13px">@ViewBag.Images</span>
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Hình ảnh 2</label>
+        <div class="col-md-10">
+            <input id="fileInput2" name="HinhAnh2" type="file" onchange="validateImage()" />
+            <span style="color:red;font-size:13px">@ViewBag.upload</span>
+            <span style="color:red;font-size:13px">@ViewBag.Images</span>
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Hình ảnh 3</label>
+        <div class="col-md-10">
+            <input id="fileInput3" name="HinhAnh3" type="file" onchange="validateImage()" />
+            <span style="color:red;font-size:13px">@ViewBag.upload</span>
+            <span style="color:red;font-size:13px">@ViewBag.Images</span>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Lưu" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}

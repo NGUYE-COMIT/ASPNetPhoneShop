@@ -1,0 +1,9 @@
+﻿@if (((string)Session["Quyen"] == "PhanQuyen,QuanLyDonHang,QuanLySanPham,QuanTri") || ((string)Session["Quyen"] == "TinTuc"))
+{
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("ListNews", "News")">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Tin tức</span>
+        </a>
+    </li>
+}

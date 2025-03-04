@@ -1,0 +1,62 @@
+﻿@using WebsiteBanHang.Models
+@model ItemGioHang
+@{
+    ViewBag.Title = "ChinhSuaGioHang";
+    Layout = "~/Views/Layout/_LayoutHomeProduct.cshtml";
+    List<ItemGioHang> itemGioHangs = (List<ItemGioHang>)ViewBag.ListGioHang;
+}
+<div class="Shopping-cart-area pt-60 pb-60">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="table-content table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th class="fb-product-thumbnail">Hình <span style="text-transform: lowercase; ">ảnh</span></th>
+                                <th class="cart-product-name">Tên <span style="text-transform: lowercase; ">sản phẩm</span></th>
+                                <th class="fb-product-price">Giá</th>
+                                <th class="fb-product-quantity">Số <span style="text-transform: lowercase; ">lượng</span></th>
+                                <th class="fb-product-subtotal">Tổng <span style="text-transform: lowercase; ">thanh toán</span></th>
+                                <th class="fb-product-remove">Chỉnh <span style="text-transform: lowercase; ">sửa</span></th>
+                                <th class="fb-product-remove">Xóa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < itemGioHangs.Count; i++)
+                            {
+                                var item = itemGioHangs[i];
+                                using (Html.BeginForm("UpdateCard", "GioHang", FormMethod.Post))
+                                {
+                                    <tr>
+                                        <td>@Html.Hidden("MaSP", item.MaSP) @(i + 1)</td>
+                                        <td class="fb-product-thumbnail" style="width:90px; height:90px;"><img src="@Url.Content("~/assets/images/product/" + item.HinhAnh)" alt="FB's Product Image" /></td>
+                                        <td class="fb-product-name"><a href="@Url.Action("ChiTietSanPham", "Sanpham", new { maLoai = item.MaLoai, maNSX = item.MaNSX, id = item.MaSP, @tensp = item.TenSP })">@item.TenSP</a></td>
+                                        <td class="fb-product-price"><span class="amount">@item.DonGia.ToString("#,##")₫</span></td>
+
+                                        <td class="quantity">
+                                            <div class="cart-plus-minus">
+                                                @Html.TextBox("SoLuong", item.SoLuong, new { @class = "cart-plus-minus-box", @readonly = "readonly" })
+                                                <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                                <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                                <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div><div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                            </div>
+                                        </td>
+                                        <td class="product-subtotal"><span class="amount">@item.ThanhTien.ToString("#,##")₫</span></td>
+                                        <td>
+                                            <input style="border:0; background: none" name="UpdateCard" value="Lưu" type="submit"/>
+                                        </td>
+                                        <td class="fb-product-remove">
+                                            @Html.ActionLink("x", "XoaGioHang", new { @maSP = item.MaSP })
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  

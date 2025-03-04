@@ -1,0 +1,16 @@
+﻿@using WebsiteBanHang.Models
+<li class="nav-item dropdown no-arrow">
+    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        @if (Session["TaiKhoan"] != null)
+        {
+            ThanhVien thanhVien = (ThanhVien)Session["TaiKhoan"];
+            <span class="mr-2 d-none d-lg-inline text-gray-600 small">@thanhVien.HoTen</span>
+            <img class="img-profile rounded-circle" src="~/assets/admin/img/undraw_profile.svg">
+        }
+
+    </a>
+    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" style="margin-left:20px"></i>@Html.ActionLink("Đăng xuất", "DangXuat", "Home", null, new { style = "color: #6d6767;text-decoration: none" })
+    </div>
+</li>

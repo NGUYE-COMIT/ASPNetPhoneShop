@@ -1,0 +1,80 @@
+﻿@using WebsiteBanHang.Models
+@model IEnumerable<SanPham>
+@{
+    ViewBag.Title = "ThongTinSanPham";
+    Layout = "~/Views/Layout/_LayoutAdmin.cshtml";
+    // Khởi tạo control Web gird
+    WebGrid gird = new WebGrid(source: Model, rowsPerPage: 10);
+}
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <a class="btn btn-primary" href="@Url.Action("ThemMoi", "QuanLySanPham")" style="margin-left:28px">Thêm mới</a>
+        </div>
+    </div>
+    @gird.GetHtml(
+        tableStyle: "Table",
+        headerStyle: "GirdHead",
+        footerStyle: "GirdFooter",
+        rowStyle: "girdRow",
+        alternatingRowStyle: "girdAltRow",
+        columns: gird.Columns(
+        gird.Column("MaSP", "Mã sản phẩm"),
+        gird.Column("TenSP", "Tên sản phẩm"),
+        gird.Column("MoTa", "Mô tả", format: p => Html.Raw(p.MoTa)),
+        gird.Column("CauHinh", "Cấu hình", format: p => Html.Raw(p.CauHinh)),
+        gird.Column("HinhAnh", "Hình ảnh", format: p => Html.Raw("<img src =\"../assets/images/product/" + p.HinhAnh + "\">")),
+        gird.Column("Chức năng", format: p => Html.ActionLink("Chỉnh sửa", "ChinhSua", new { id = p.MaSP })),
+        gird.Column("Chức năng", format: p => Html.ActionLink("Xóa", "Remove", new { id = p.MaSP }))
+        ))
+<style>
+    .Table {
+        width: 95%;
+        border-collapse: collapse;
+        background-color: #ffffff;
+        font-size: 14px;
+        margin-left: 35px;
+        border: 2px solid #f1f1f1;
+    }
+
+    .GirdHead {
+        background-color: #ffffff;
+        color: #fff;
+        font-weight: bold;
+        border: 2px solid #f1f1f1;
+    }
+
+        .GirdHead th {
+            padding: 8px;
+            border-right: 2px solid #f1f1f1; /* Viền cho hàng dọc (cột) */
+        }
+
+    .girdRow {
+        background-color: #fff;
+    }
+
+    .girdAltRow {
+        background-color: #f9f9f9;
+    }
+
+    .girdRow, .girdAltRow {
+        border-bottom: 1px solid #ddd;
+    }
+
+        .girdRow td, .girdAltRow td {
+            padding: 8px;
+            border-right: 2px solid #f1f1f1; /* Viền cho hàng dọc (cột) */
+        }
+
+    .GirdFooter {
+        text-align: center;
+        font-size: 20px;
+    }
+
+        .GirdFooter a {
+            background: #4e73df;
+            color: white;
+            margin: 0 10px;
+            border-radius: 5px;
+            padding: 0 5px;
+        }
+</style>

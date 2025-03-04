@@ -1,0 +1,42 @@
+﻿@model IEnumerable<WebsiteBanHang.Models.Quyen>
+@{
+    ViewBag.Title = "Quản lý quyền";
+    Layout = "~/Views/Layout/_LayoutAdmin.cshtml";
+}
+<div class="form-group">
+    <div class="col-md-offset-5 col-md-10">
+        <a class="btn btn-primary" href="@Url.Action("CreateRole", "Quyen")" style="margin-left:12px">Thêm mới</a>
+    </div>
+</div>
+<div class="card-body" style="padding-top:0">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <tr>
+                <th>
+                    Mã quyền
+                </th>
+                <th>
+                    Tên quyền
+                </th>
+                <th>Chức năng</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaQuyen)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenQuyen)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "UpdateRole", new { id = item.MaQuyen }) |
+                        @Html.ActionLink("Delete", "RemoveRole", new { id = item.MaQuyen })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
